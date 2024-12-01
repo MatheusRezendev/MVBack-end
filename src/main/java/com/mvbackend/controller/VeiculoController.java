@@ -61,7 +61,7 @@ public class VeiculoController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<DadosListagemVeiculo> excluirVeiculo(@PathVariable Long id){
+    public ResponseEntity<Void> excluirVeiculo(@PathVariable Long id){
         try{
             veiculoService.excluirVeiculo(id);
             return ResponseEntity.noContent().build();
