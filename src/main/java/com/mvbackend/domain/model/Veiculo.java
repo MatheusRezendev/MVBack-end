@@ -1,11 +1,13 @@
 package com.mvbackend.domain.model;
 
+import com.mvbackend.domain.dto.DadosCadastroVeiculo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -30,4 +32,13 @@ public class Veiculo {
 
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
     private List<Agendamento> agendamentos;
+
+    public Veiculo( DadosCadastroVeiculo dadosCadastroVeiculo){
+        this.marca = dadosCadastroVeiculo.marca();
+        this.modelo = dadosCadastroVeiculo.modelo();
+        this.ano = dadosCadastroVeiculo.ano();
+        this.cliente = dadosCadastroVeiculo.cliente();
+        this.servicos = new ArrayList<>();
+        this.agendamentos = new ArrayList<>();
+    }
 }
