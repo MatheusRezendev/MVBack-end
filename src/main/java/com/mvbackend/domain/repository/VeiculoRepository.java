@@ -8,4 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface VeiculoRepository extends JpaRepository<Veiculo, Long> {
 
     Page<Veiculo> findByAno( Integer ano, Pageable pageable );
+
+    Page<Veiculo> findByMarca( String marca, Pageable pageable );
 }

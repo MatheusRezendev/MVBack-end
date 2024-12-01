@@ -39,4 +39,12 @@ public class VeiculoService {
         }
     }
 
+    public Page<Veiculo>  findVeiculosByMarca(String marca, Pageable pageable) {
+        try{
+            return veiculoRepository.findByMarca(marca, pageable);
+        } catch (Exception e) {
+            throw new RuntimeException("Não foi possivel localizar os veículos!" + e);
+        }
+    }
+
 }
