@@ -31,4 +31,7 @@ public class Agendamento {
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
+
+    public void setServico(Servico servico) {
+    }
 }
