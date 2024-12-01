@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
+@RequestMapping("/'veiculos")
 public class VeiculoController {
 
     @Autowired
@@ -24,6 +25,7 @@ public class VeiculoController {
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemVeiculo>> listarVeiculos( Pageable pageable) {
+
         var page = veiculoService.findAll(pageable).map(DadosListagemVeiculo::new);
 
         return ResponseEntity.ok(page);
@@ -61,7 +63,7 @@ public class VeiculoController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<DadosListagemVeiculo> excluirLivro(@PathVariable Long id){
+    public ResponseEntity<Void> excluirLivro(@PathVariable Long id){
         try{
             veiculoService.excluirVeiculo(id);
             return ResponseEntity.noContent().build();
