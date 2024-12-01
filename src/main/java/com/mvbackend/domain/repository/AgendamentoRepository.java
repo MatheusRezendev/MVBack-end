@@ -1,4 +1,8 @@
 package com.mvbackend.domain.repository;
 
-public class AgendamentoRepository {
+import com.mvbackend.domain.model.Agendamento;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AgendamentoRepository extends JpaRepository<Agendamento, Long> {
+
 }

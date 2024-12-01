@@ -1,4 +1,7 @@
 package com.mvbackend.domain.repository;
 
-public class ServicoRepository {
+import com.mvbackend.domain.model.Servico;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ServicoRepository extends JpaRepository<Servico, Long> {
 }
