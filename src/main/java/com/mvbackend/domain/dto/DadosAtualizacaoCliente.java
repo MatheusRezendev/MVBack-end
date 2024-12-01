@@ -2,11 +2,12 @@ package com.mvbackend.domain.dto;
 
 import jakarta.validation.constraints.NotNull;
 
-public class DadosAtualizarCliente {
+public record DadosAtualizacaoCliente(
     @NotNull
-    Long id;
+    Long id,
 
-    String nome;
-    String email;
-    String telefone;
+    String nome,
+    String email,
+    String telefone
+) {
 }

@@ -1,13 +1,18 @@
 package com.mvbackend.controller;
 
+import com.mvbackend.domain.dto.DadosAtualizacaoCliente;
+import com.mvbackend.domain.dto.DadosCadastroCliente;
+import com.mvbackend.domain.dto.DadosListagemCliente;
 import com.mvbackend.domain.model.Cliente;
 import com.mvbackend.domain.service.ClienteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/cliente")
@@ -19,5 +24,40 @@ public class ClienteController {
     @GetMapping
     public Page<Cliente> listarTodos(Pageable pageable) {
         return clienteService.findAll(pageable);
+    }
+
+    @PostMapping
+    @Transactional
+    public ResponseEntity<DadosListagemCliente> salvar(@RequestBody @Valid DadosCadastroCliente dadosCadastroCliente, UriComponentsBuilder uriBuilder) {
+        Cliente cliente = new Cliente(dadosCadastroCliente);
+        clienteService.save(cliente);
+        var uri = uriBuilder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
+        return ResponseEntity.created(uri).body(new DadosListagemCliente(cliente));
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DadosListagemCliente> atualizar(
+            @PathVariable Long id,
+            @RequestBody @Valid DadosAtualizacaoCliente dadosAtualizacaoCliente) {
+
+        Cliente clienteAtualizado = new Cliente();
+        clienteAtualizado.setId(id);
+        clienteAtualizado.setNome(dadosAtualizacaoCliente.nome());
+        clienteAtualizado.setEmail(dadosAtualizacaoCliente.email());
+        clienteAtualizado.setTelefone(dadosAtualizacaoCliente.telefone());
+
+        Cliente cliente = clienteService.update(id, clienteAtualizado);
+
+        return ResponseEntity.ok(new DadosListagemCliente(cliente));
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        var cliente = clienteService.findById(id);
+        clienteService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
