@@ -1,6 +1,8 @@
 package com.mvbackend.domain.dto;
 
+import com.mvbackend.domain.model.Cliente;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosCadastroVeiculo (
@@ -11,6 +13,9 @@ public record DadosCadastroVeiculo (
         String modelo,
 
         @NotNull
-        Integer ano
+        Integer ano,
+
+        @NotEmpty
+        Cliente cliente
 ){
 }
