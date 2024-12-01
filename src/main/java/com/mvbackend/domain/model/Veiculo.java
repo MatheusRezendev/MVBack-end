@@ -22,7 +22,7 @@ public class Veiculo {
     private Integer ano;
 
     @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
+    @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
