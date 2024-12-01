@@ -19,7 +19,7 @@ public class Veiculo {
     private Long id;
     private String marca;
     private String modelo;
-    private int ano;
+    private Integer ano;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id", nullable = false)
