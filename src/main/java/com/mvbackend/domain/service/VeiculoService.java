@@ -1,5 +1,6 @@
 package com.mvbackend.domain.service;
 
+import com.mvbackend.domain.dto.DadosAtualizacaoVeiculo;
 import com.mvbackend.domain.model.Veiculo;
 import com.mvbackend.domain.repository.VeiculoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +24,8 @@ public class VeiculoService {
         }
     }
 
-    public Optional<Veiculo> findById(Long id) {
-        try{
-            return veiculoRepository.findById(id);
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+    public Veiculo findById(Long id) {
+        return veiculoRepository.findById(id).orElse(null);
     }
 
     public Page<Veiculo> findVeiculosByAno(Integer ano, Pageable pageable) {
@@ -47,4 +44,34 @@ public class VeiculoService {
         }
     }
 
+    public void cadastrarVeiculo( Veiculo veiculo ) {
+        try{
+            veiculoRepository.save(veiculo);
+        } catch (Exception e) {
+            System.out.println("Erro ao cadastrar veículo!" + e.getMessage());
+        }
+    }
+
+    public void atualizarInformacoesVeiculo( DadosAtualizacaoVeiculo dadosAtualizacaoVeiculo, Veiculo veiculo ) {
+        try{
+            if(dadosAtualizacaoVeiculo.marca() != null){
+                veiculo.setMarca(dadosAtualizacaoVeiculo.marca());
+            }
+            if(dadosAtualizacaoVeiculo.ano() != null){
+                veiculo.setAno(dadosAtualizacaoVeiculo.ano());
+            }
+            if(dadosAtualizacaoVeiculo.modelo() != null){
+                veiculo.setModelo(dadosAtualizacaoVeiculo.modelo());
+            }
+            if(dadosAtualizacaoVeiculo.cliente() != null){
+                veiculo.setCliente(dadosAtualizacaoVeiculo.cliente());
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao atualizar veículo" + e.getMessage());
+        }
+    }
+
+    public void excluirVeiculo( Long id ) {
+        veiculoRepository.deleteById(id);
+    }
 }
