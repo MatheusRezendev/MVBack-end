@@ -15,10 +15,10 @@ public record DadosCadastroAgendamento(
         Date data,
 
         @NotNull
-        Cliente cliente,
+        Long idCliente,
 
         @NotNull
-        Veiculo veiculo
+        Long idVeiculo
 
 
 ) {
