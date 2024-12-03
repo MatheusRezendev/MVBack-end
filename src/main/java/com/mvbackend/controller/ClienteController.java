@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 @RequestMapping("/cliente")
 public class ClienteController {
 
