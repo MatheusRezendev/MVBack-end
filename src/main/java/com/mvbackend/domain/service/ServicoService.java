@@ -58,4 +58,8 @@ public class ServicoService {
             throw new RuntimeException("Erro ao deletar servico");
         }
     }
+
+    public void save( Servico servico ) {
+        servicoRepository.save(servico);
+    }
 }
