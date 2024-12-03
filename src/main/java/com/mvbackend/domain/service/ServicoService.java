@@ -1,5 +1,6 @@
 package com.mvbackend.domain.service;
 
+import com.mvbackend.domain.dto.DadosAtualizacaoServico;
 import com.mvbackend.domain.dto.DadosListagemServico;
 import com.mvbackend.domain.model.Cliente;
 import com.mvbackend.domain.model.Servico;
@@ -37,4 +38,24 @@ public class ServicoService {
         return servicos;
     }
 
+    public void atualizar( DadosAtualizacaoServico dadosAtualizacaoServico, Servico servico ) {
+        try{
+            if(dadosAtualizacaoServico.descricao() != null){
+                servico.setDescricao(dadosAtualizacaoServico.descricao());
+            }
+            if(dadosAtualizacaoServico.preco() != null){
+                servico.setPreco(dadosAtualizacaoServico.preco());
+            }
+        } catch (Exception e){
+            throw new RuntimeException("Erro ao atualizar servico");
+        }
+    }
+
+    public void deletarServico( Long id ) {
+        try {
+            servicoRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao deletar servico");
+        }
+    }
 }
