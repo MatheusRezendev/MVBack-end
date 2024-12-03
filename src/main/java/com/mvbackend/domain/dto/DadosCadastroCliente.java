@@ -1,15 +1,16 @@
 package com.mvbackend.domain.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record DadosCadastroCliente(
-        @NotBlank
+        @NotBlank(message = "Nome obrigatorio")
         String nome,
 
-        @NotBlank
+        @NotBlank(message = "Email deve ser válido")
         String email,
 
-        @NotBlank
+        @NotBlank(message = "Telefone deve ser válido")
         String telefone
 
 ) {
