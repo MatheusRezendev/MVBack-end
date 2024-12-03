@@ -23,12 +23,13 @@ public class ServicoService {
         return servicoRepository.findById(id).orElse(null);
     }
 
-    public void cadastrarServico(Servico servico) {
+    public Servico cadastrarServico(Servico servico) {
         try{
             servicoRepository.save(servico);
         } catch (Exception e) {
             System.out.println("Erro ao cadastrar servico");
         }
+        return servico;
     }
 
     public Page<Servico> findByCliente( Cliente cliente, Pageable pageable) {
