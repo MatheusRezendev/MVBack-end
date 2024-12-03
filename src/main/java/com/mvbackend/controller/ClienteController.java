@@ -23,8 +23,11 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @GetMapping
-    public Page<Cliente> listarTodos(Pageable pageable) {
-        return clienteService.findAll(pageable);
+    public ResponseEntity<Page<DadosListagemCliente>> listarTodos(Pageable pageable) {
+
+        var page = clienteService.findAll(pageable).map(DadosListagemCliente::new);
+
+        return ResponseEntity.ok(page);
     }
 
     @PostMapping
