@@ -1,12 +1,15 @@
 package com.mvbackend.controller;
 
+import com.mvbackend.domain.dto.DadosAtualizacaoServico;
 import com.mvbackend.domain.dto.DadosCadastroServico;
 import com.mvbackend.domain.dto.DadosListagemServico;
 import com.mvbackend.domain.dto.DadosListagemVeiculo;
 import com.mvbackend.domain.model.Cliente;
 import com.mvbackend.domain.model.Servico;
+import com.mvbackend.domain.model.Veiculo;
 import com.mvbackend.domain.service.ClienteService;
 import com.mvbackend.domain.service.ServicoService;
+import com.mvbackend.domain.service.VeiculoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,8 @@ public class ServicoController {
     private ServicoService servicoService;
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private VeiculoService veiculoService;
 
     @GetMapping("/cliente/{clienteId}")
     public ResponseEntity<Page<DadosListagemServico>> findByCliente( @PathVariable Long clienteId, Pageable pageable) {
@@ -32,8 +37,7 @@ public class ServicoController {
         var cliente = clienteService.findById(clienteId);
 
         try{
-            Cliente cliente1 = cliente.get();
-            var page = servicoService.findByCliente(cliente1,pageable).map(DadosListagemServico::new);
+            var page = servicoService.findByCliente(cliente,pageable).map(DadosListagemServico::new);
 
             return ResponseEntity.ok(page);
         } catch (Exception e) {
@@ -46,17 +50,13 @@ public class ServicoController {
     @Transactional
     public ResponseEntity<DadosListagemServico> cadastrarServico(@RequestBody @Valid DadosCadastroServico dadosCadastroServico, UriComponentsBuilder uriBuilder) {
         try{
-            Cliente cliente = clienteService.findById(dadosCadastroServico.cliente().getId());
+            Cliente cliente = clienteService.findById(dadosCadastroServico.idCliente());
+            Veiculo veiculo = veiculoService.findById(dadosCadastroServico.idVeiculo());
 
-            Servico servico = new Servico();
-            servico.setDescricao(dadosCadastroServico.descricao());
-            servico.setCliente(cliente);
-            servico.setPreco(dadosCadastroServico.preco());
+            Servico servico = new Servico(dadosCadastroServico,cliente, veiculo);
 
-            Servico servicoSalvo = servicoService.cadastrarServico(servico);
-
-            var uri = uriBuilder.path("/servicos/{id}").buildAndExpand(servicoSalvo.getId()).toUri();
-            return ResponseEntity.created(uri).body(new DadosListagemServico(servicoSalvo));
+            var uri = uriBuilder.path("/servicos/{id}").buildAndExpand(servico.getId()).toUri();
+            return ResponseEntity.created(uri).body(new DadosListagemServico(servico));
         } catch (EntityNotFoundException e){
             System.out.println("Entity not Found");
             return ResponseEntity.notFound().build();
@@ -68,24 +68,20 @@ public class ServicoController {
         var page = servicoService.findAll(pageable).map(DadosListagemServico::new);
         return ResponseEntity.ok(page);
     }
-/*
+
     @PutMapping
     @Transactional
     public ResponseEntity<DadosListagemServico> atualizarServico(@RequestBody @Valid DadosAtualizacaoServico dadosAtualizacaoServico) {
         try {
-            Servico servico = servicoService.findById(dadosAtualizacaoServico.id())
-                    .orElseThrow(() -> new EntityNotFoundException("Serviço não encontrado"));
+            Servico servico = servicoService.findById(dadosAtualizacaoServico.id());
 
-            servico.setDescricao(dadosAtualizacaoServico.descricao());
-            servico.setPreco(dadosAtualizacaoServico.preco());
+            servicoService.atualizar(dadosAtualizacaoServico, servico);
 
-            servicoService.cadastrarServico(servico);
-
-            return ResponseEntity.ok(new DadosListagemServico(servico));
         } catch (EntityNotFoundException e) {
             System.out.println("Entity not found: " + e.getMessage());
             return ResponseEntity.badRequest().build();
         }
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
@@ -99,5 +95,5 @@ public class ServicoController {
             return ResponseEntity.badRequest().build();
         }
     }
-*/
+
 }

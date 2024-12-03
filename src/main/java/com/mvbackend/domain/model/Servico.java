@@ -1,5 +1,6 @@
 package com.mvbackend.domain.model;
 
+import com.mvbackend.domain.dto.DadosCadastroServico;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,4 +29,11 @@ public class Servico {
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
+
+    public Servico( DadosCadastroServico dadosCadastroServico, Cliente cliente, Veiculo veiculo ) {
+        this.descricao = dadosCadastroServico.descricao();
+        this.preco = dadosCadastroServico.preco();
+        this.cliente = cliente;
+        this.veiculo = veiculo;
+    }
 }

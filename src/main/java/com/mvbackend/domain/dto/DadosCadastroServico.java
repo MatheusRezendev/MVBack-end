@@ -6,16 +6,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record DadosCadastroServico(
-        @NotBlank
+        @NotBlank(message = "Descrição não pode ser nula")
         String descricao,
 
-        @NotNull
-        Cliente cliente,
+        @NotNull(message = "Id do cliente não pode ser nulo")
+        Long idCliente,
 
-        @NotNull
-        Veiculo veiculo,
+        @NotNull(message = "Id do veiculo não pode ser nulo")
+        Long idVeiculo,
 
-        @NotNull
+        @NotNull(message = "Preco não pode ser nulo")
         Double preco
 ) {
 }
