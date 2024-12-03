@@ -16,7 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @CrossOrigin(origins = "http://127.0.0.1:5500")
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClienteController {
 
     @Autowired
@@ -42,13 +42,10 @@ public class ClienteController {
             @PathVariable Long id,
             @RequestBody @Valid DadosAtualizacaoCliente dadosAtualizacaoCliente) {
 
-        Cliente clienteAtualizado = new Cliente();
-        clienteAtualizado.setId(id);
-        clienteAtualizado.setNome(dadosAtualizacaoCliente.nome());
-        clienteAtualizado.setEmail(dadosAtualizacaoCliente.email());
-        clienteAtualizado.setTelefone(dadosAtualizacaoCliente.telefone());
+        Cliente cliente = clienteService.findById(id);
 
-        Cliente cliente = clienteService.update(id, clienteAtualizado);
+        clienteService.update(dadosAtualizacaoCliente, cliente);
+
 
         return ResponseEntity.ok(new DadosListagemCliente(cliente));
     }

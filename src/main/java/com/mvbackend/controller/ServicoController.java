@@ -46,8 +46,7 @@ public class ServicoController {
     @Transactional
     public ResponseEntity<DadosListagemServico> cadastrarServico(@RequestBody @Valid DadosCadastroServico dadosCadastroServico, UriComponentsBuilder uriBuilder) {
         try{
-            Cliente cliente = clienteService.findById(dadosCadastroServico.cliente().getId())
-                    .orElseThrow(() -> new EntityNotFoundException("Cliente não encontrado"));
+            Cliente cliente = clienteService.findById(dadosCadastroServico.cliente().getId());
 
             Servico servico = new Servico();
             servico.setDescricao(dadosCadastroServico.descricao());
