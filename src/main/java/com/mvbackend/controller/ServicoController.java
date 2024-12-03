@@ -55,10 +55,12 @@ public class ServicoController {
 
             Servico servico = new Servico(dadosCadastroServico,cliente, veiculo);
 
+            servicoService.save(servico);
+
             var uri = uriBuilder.path("/servicos/{id}").buildAndExpand(servico.getId()).toUri();
             return ResponseEntity.created(uri).body(new DadosListagemServico(servico));
         } catch (EntityNotFoundException e){
-            System.out.println("Entity not Found");
+            System.out.println("Erro ao salvar servico");
             return ResponseEntity.notFound().build();
         }
     }
