@@ -22,6 +22,7 @@ public class Cliente {
     private String nome;
     private String email;
     private String telefone;
+    private String cpf;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Veiculo> veiculos;
@@ -36,6 +37,7 @@ public class Cliente {
         this.nome = dadosCadastroCliente.nome();
         this.email = dadosCadastroCliente.email();
         this.telefone = dadosCadastroCliente.telefone();
+        this.cpf = dadosCadastroCliente.cpf();
         this.servicos = new ArrayList<>();
         this.veiculos = new ArrayList<>();
         this.agendamentos = new ArrayList<>();
