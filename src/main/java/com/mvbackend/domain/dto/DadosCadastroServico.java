@@ -9,12 +9,6 @@ public record DadosCadastroServico(
         @NotBlank(message = "Descrição não pode ser nula")
         String descricao,
 
-        @NotNull(message = "Id do cliente não pode ser nulo")
-        Long idCliente,
-
-        @NotNull(message = "Id do veiculo não pode ser nulo")
-        Long idVeiculo,
-
         @NotNull(message = "Preco não pode ser nulo")
         Double preco
 ) {

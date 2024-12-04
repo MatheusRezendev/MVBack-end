@@ -20,20 +20,15 @@ public class Servico {
     @Column(columnDefinition = "TEXT")
     private String descricao;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
-    private Cliente cliente;
-
     private Double preco;
+
 
     @ManyToOne
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
 
-    public Servico( DadosCadastroServico dadosCadastroServico, Cliente cliente, Veiculo veiculo ) {
+    public Servico( DadosCadastroServico dadosCadastroServico) {
         this.descricao = dadosCadastroServico.descricao();
         this.preco = dadosCadastroServico.preco();
-        this.cliente = cliente;
-        this.veiculo = veiculo;
     }
 }

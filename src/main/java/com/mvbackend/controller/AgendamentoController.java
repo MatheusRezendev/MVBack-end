@@ -7,6 +7,7 @@ import com.mvbackend.domain.dto.DadosListagemAgendamento;
 import com.mvbackend.domain.model.Agendamento;
 import com.mvbackend.domain.service.AgendamentoService;
 import com.mvbackend.domain.service.ClienteService;
+import com.mvbackend.domain.service.ServicoService;
 import com.mvbackend.domain.service.VeiculoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -32,14 +33,17 @@ public class AgendamentoController {
     private VeiculoService veiculoService;
     @Autowired
     private ClienteService clienteService;
+    @Autowired
+    private ServicoService servicoService;
 
     @PostMapping
     public ResponseEntity<DadosListagemAgendamento> criarAgendamento(@RequestBody @Valid DadosCadastroAgendamento dadosCadastroAgendamento, UriComponentsBuilder uriBuilder) {
         try {
             var cliente = clienteService.findById(dadosCadastroAgendamento.idCliente());
             var veiculo = veiculoService.findById(dadosCadastroAgendamento.idVeiculo());
+            var servico = servicoService.findById(dadosCadastroAgendamento.idServico());
 
-            var agendamento = new Agendamento(dadosCadastroAgendamento, cliente, veiculo);
+            var agendamento = new Agendamento(dadosCadastroAgendamento, cliente, veiculo, servico);
             agendamentoService.criarAgendamento(agendamento);
 
             var uri = uriBuilder.path("/agendamentos/{id}").buildAndExpand(agendamento.getId()).toUri();

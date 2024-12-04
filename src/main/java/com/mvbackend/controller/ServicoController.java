@@ -50,10 +50,7 @@ public class ServicoController {
     @Transactional
     public ResponseEntity<DadosListagemServico> cadastrarServico(@RequestBody @Valid DadosCadastroServico dadosCadastroServico, UriComponentsBuilder uriBuilder) {
         try{
-            Cliente cliente = clienteService.findById(dadosCadastroServico.idCliente());
-            Veiculo veiculo = veiculoService.findById(dadosCadastroServico.idVeiculo());
-
-            Servico servico = new Servico(dadosCadastroServico,cliente, veiculo);
+            Servico servico = new Servico(dadosCadastroServico);
 
             servicoService.save(servico);
 
