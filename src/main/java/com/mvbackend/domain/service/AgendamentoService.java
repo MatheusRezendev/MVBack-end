@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
+
+import java.time.LocalDate;
 import java.util.Date;
 
 @Service
@@ -36,7 +38,7 @@ public class AgendamentoService {
     @Autowired
     private ClienteService clienteService;
 
-    public Agendamento criarAgendamento(Long clienteId, Long veiculoId, Long servicoId, Date data) {
+    public Agendamento criarAgendamento(Long clienteId, Long veiculoId, Long servicoId, LocalDate data) {
         Cliente cliente = clienteRepository.findById(clienteId).orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
         Veiculo veiculo = veiculoRepository.findById(veiculoId).orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
         Servico servico = servicoRepository.findById(servicoId).orElseThrow(() -> new RuntimeException("Serviço não encontrado"));

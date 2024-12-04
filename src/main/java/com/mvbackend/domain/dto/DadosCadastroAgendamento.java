@@ -5,6 +5,7 @@ import com.mvbackend.domain.model.Veiculo;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public record DadosCadastroAgendamento(
@@ -12,7 +13,7 @@ public record DadosCadastroAgendamento(
         String descricao,
 
         @NotNull
-        Date data,
+        LocalDate data,
 
         @NotNull
         Long idCliente,
