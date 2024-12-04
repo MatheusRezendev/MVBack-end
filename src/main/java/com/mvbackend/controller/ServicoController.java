@@ -50,12 +50,21 @@ public class ServicoController {
         return ResponseEntity.ok(page);
     }
 
-    @PutMapping
-    @Transactional
-    public ResponseEntity<DadosListagemServico> atualizarServico(@RequestBody @Valid DadosAtualizacaoServico dadosAtualizacaoServico) {
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosListagemServico> obterServico(@PathVariable Long id) {
         try {
-            Servico servico = servicoService.findById(dadosAtualizacaoServico.id());
+            Servico servico = servicoService.findById(id);
+            return ResponseEntity.ok(new DadosListagemServico(servico));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<DadosListagemServico> atualizarServico(@RequestBody @Valid DadosAtualizacaoServico dadosAtualizacaoServico, @PathVariable Long id) {
+        try {
+            Servico servico = servicoService.findById(id);
             servicoService.atualizar(dadosAtualizacaoServico, servico);
 
         } catch (EntityNotFoundException e) {
