@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,11 +24,8 @@ public class Servico {
 
     private Double preco;
 
-
-    @ManyToOne
-    @JoinColumn(name = "veiculo_id")
-    private Veiculo veiculo;
-
+    @OneToMany(mappedBy = "servico", cascade = CascadeType.ALL)
+    private List<Agendamento> agendamentos;
 
     public Servico( DadosCadastroServico dadosCadastroServico) {
         this.descricao = dadosCadastroServico.descricao();

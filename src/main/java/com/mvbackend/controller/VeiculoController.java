@@ -33,6 +33,16 @@ public class VeiculoController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosListagemVeiculo> buscarVeiculoPorId(@PathVariable Long id) {
+        try{
+            var veiculo = veiculoService.findById(id);
+            return ResponseEntity.ok(new DadosListagemVeiculo(veiculo));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @PostMapping
     @Transactional
     public ResponseEntity<DadosListagemVeiculo> cadastrarVeiculo( @RequestBody @Valid DadosCadastroVeiculo dadosCadastroVeiculo, UriComponentsBuilder uriBuilder){
@@ -50,7 +60,7 @@ public class VeiculoController {
         return ResponseEntity.badRequest().build();
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<DadosListagemVeiculo> atualizarVeiculo(@RequestBody @Valid DadosAtualizacaoVeiculo dadosAtualizacaoVeiculo){
         try{

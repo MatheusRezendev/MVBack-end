@@ -1,8 +1,10 @@
 package com.mvbackend.domain.service;
 
 import com.mvbackend.domain.dto.DadosAtualizacaoVeiculo;
+import com.mvbackend.domain.model.Cliente;
 import com.mvbackend.domain.model.Veiculo;
 import com.mvbackend.domain.repository.VeiculoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -61,9 +63,6 @@ public class VeiculoService {
             }
             if(dadosAtualizacaoVeiculo.modelo() != null){
                 veiculo.setModelo(dadosAtualizacaoVeiculo.modelo());
-            }
-            if(dadosAtualizacaoVeiculo.cliente() != null){
-                veiculo.setCliente(dadosAtualizacaoVeiculo.cliente());
             }
         } catch (Exception e) {
             System.out.println("Erro ao atualizar veículo" + e.getMessage());
