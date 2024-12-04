@@ -28,9 +28,6 @@ public class Veiculo {
     private Cliente cliente;
 
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
-    private List<Servico> servicos;
-
-    @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
     private List<Agendamento> agendamentos;
 
     public Veiculo( DadosCadastroVeiculo dadosCadastroVeiculo, Cliente cliente ){
@@ -38,7 +35,6 @@ public class Veiculo {
         this.modelo = dadosCadastroVeiculo.modelo();
         this.ano = dadosCadastroVeiculo.ano();
         this.cliente = cliente;
-        this.servicos = new ArrayList<>();
         this.agendamentos = new ArrayList<>();
     }
 }

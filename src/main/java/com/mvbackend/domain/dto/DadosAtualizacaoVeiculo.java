@@ -11,6 +11,6 @@ public record DadosAtualizacaoVeiculo(
         String marca,
         String modelo,
         Integer ano,
-        Cliente cliente
+        Long clienteId
 ) {
 }
