@@ -22,7 +22,7 @@ public class Agendamento {
 
     @Column(columnDefinition = "TEXT")
     private String descricao;
-    
+
     private LocalDate data;
 
     @ManyToOne

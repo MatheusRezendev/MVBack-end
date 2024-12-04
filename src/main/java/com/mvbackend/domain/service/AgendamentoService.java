@@ -9,6 +9,7 @@ import com.mvbackend.domain.repository.AgendamentoRepository;
 import com.mvbackend.domain.repository.ClienteRepository;
 import com.mvbackend.domain.repository.ServicoRepository;
 import com.mvbackend.domain.repository.VeiculoRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -92,5 +93,11 @@ public class AgendamentoService {
 
     public Agendamento findById(Long id) {
         return agendamentoRepository.findById(id).orElse(null);
+    }
+
+    public void excluirServico(Long id) {
+        Agendamento agendamento = agendamentoRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Agendamento nao encontrado"));
+        agendamentoRepository.delete(agendamento);
     }
 }
