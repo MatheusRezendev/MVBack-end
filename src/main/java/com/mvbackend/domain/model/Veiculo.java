@@ -33,11 +33,11 @@ public class Veiculo {
     @OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL)
     private List<Agendamento> agendamentos;
 
-    public Veiculo( DadosCadastroVeiculo dadosCadastroVeiculo){
+    public Veiculo( DadosCadastroVeiculo dadosCadastroVeiculo, Cliente cliente ){
         this.marca = dadosCadastroVeiculo.marca();
         this.modelo = dadosCadastroVeiculo.modelo();
         this.ano = dadosCadastroVeiculo.ano();
-        this.cliente = dadosCadastroVeiculo.cliente();
+        this.cliente = cliente;
         this.servicos = new ArrayList<>();
         this.agendamentos = new ArrayList<>();
     }
