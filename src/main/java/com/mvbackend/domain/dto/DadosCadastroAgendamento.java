@@ -18,7 +18,10 @@ public record DadosCadastroAgendamento(
         Long idCliente,
 
         @NotNull
-        Long idVeiculo
+        Long idVeiculo,
+
+        @NotNull
+        Long idServico
 
 
 ) {

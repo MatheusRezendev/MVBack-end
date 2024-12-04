@@ -33,11 +33,17 @@ public class Agendamento {
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
 
-    public Agendamento( DadosCadastroAgendamento dadosCadastroAgendamento, Cliente cliente, Veiculo veiculo ) {
+    @ManyToOne
+    @JoinColumn(name = "servico_id")
+    private Servico servico;
+
+
+    public Agendamento( DadosCadastroAgendamento dadosCadastroAgendamento, Cliente cliente, Veiculo veiculo, Servico servico ) {
         this.descricao=dadosCadastroAgendamento.descricao();
         this.data=dadosCadastroAgendamento.data();
         this.cliente = cliente;
         this.veiculo = veiculo;
+        this.servico = servico;
     }
 
     public void setServico(Servico servico) {
