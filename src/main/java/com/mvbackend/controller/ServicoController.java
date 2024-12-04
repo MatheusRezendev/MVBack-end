@@ -22,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/servicos")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class ServicoController {
 
     @Autowired
