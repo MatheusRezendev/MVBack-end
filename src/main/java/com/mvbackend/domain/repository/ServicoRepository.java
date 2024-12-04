@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ServicoRepository extends JpaRepository<Servico, Long> {
-    Page<Servico> findByCliente( Cliente cliente, Pageable pageable );
+
 }

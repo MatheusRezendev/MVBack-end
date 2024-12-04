@@ -33,10 +33,6 @@ public class ServicoService {
         return servico;
     }
 
-    public Page<Servico> findByCliente( Cliente cliente, Pageable pageable) {
-        Page<Servico> servicos = servicoRepository.findByCliente(cliente,pageable);
-        return servicos;
-    }
 
     public void atualizar( DadosAtualizacaoServico dadosAtualizacaoServico, Servico servico ) {
         try{

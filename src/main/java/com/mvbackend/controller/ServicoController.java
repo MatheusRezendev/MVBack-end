@@ -26,25 +26,7 @@ public class ServicoController {
 
     @Autowired
     private ServicoService servicoService;
-    @Autowired
-    private ClienteService clienteService;
-    @Autowired
-    private VeiculoService veiculoService;
 
-    @GetMapping("/cliente/{clienteId}")
-    public ResponseEntity<Page<DadosListagemServico>> findByCliente( @PathVariable Long clienteId, Pageable pageable) {
-
-        var cliente = clienteService.findById(clienteId);
-
-        try{
-            var page = servicoService.findByCliente(cliente,pageable).map(DadosListagemServico::new);
-
-            return ResponseEntity.ok(page);
-        } catch (Exception e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
-        return ResponseEntity.notFound().build();
-    }
 
     @PostMapping
     @Transactional
