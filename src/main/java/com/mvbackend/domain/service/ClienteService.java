@@ -28,21 +28,26 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public void update( DadosAtualizacaoCliente dadosAtualizacaoCliente, Cliente clienteAtualizado){
-       try{
-           if(clienteAtualizado.getNome() != null){
-               clienteAtualizado.setNome(clienteAtualizado.getNome());
-           }
-           if(clienteAtualizado.getEmail() != null){
-               clienteAtualizado.setEmail(clienteAtualizado.getEmail());
-           }
-           if(clienteAtualizado.getTelefone() != null){
-               clienteAtualizado.setTelefone(clienteAtualizado.getTelefone());
-           }
-       } catch (Exception e){
-           throw new RuntimeException("Erro ao atualizar cliente", e);
-       }
+    public void update(DadosAtualizacaoCliente dadosAtualizacaoCliente, Cliente clienteAtualizado) {
+        try {
+            
+            if (dadosAtualizacaoCliente.nome() != null) {
+                clienteAtualizado.setNome(dadosAtualizacaoCliente.nome());
+            }
+            if (dadosAtualizacaoCliente.email() != null) {
+                clienteAtualizado.setEmail(dadosAtualizacaoCliente.email());
+            }
+            if (dadosAtualizacaoCliente.telefone() != null) {
+                clienteAtualizado.setTelefone(dadosAtualizacaoCliente.telefone());
+            }
+
+            clienteRepository.save(clienteAtualizado);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao atualizar cliente", e);
+        }
     }
+
 
     public void delete(Long id) {
         clienteRepository.deleteById(id);
