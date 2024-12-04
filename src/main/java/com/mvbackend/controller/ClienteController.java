@@ -30,6 +30,16 @@ public class ClienteController {
         return ResponseEntity.ok(page);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosListagemCliente> listarCliente(@PathVariable Long id){
+        var cliente = clienteService.findById(id);
+
+        if (cliente != null) {
+            return ResponseEntity.ok(new DadosListagemCliente(cliente));
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PostMapping
     @Transactional
     public ResponseEntity<DadosListagemCliente> salvar(@RequestBody @Valid DadosCadastroCliente dadosCadastroCliente, UriComponentsBuilder uriBuilder) {
