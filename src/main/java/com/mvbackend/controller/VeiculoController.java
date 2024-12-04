@@ -5,6 +5,7 @@ import com.mvbackend.domain.dto.DadosCadastroVeiculo;
 import com.mvbackend.domain.dto.DadosListagemCliente;
 import com.mvbackend.domain.dto.DadosListagemVeiculo;
 import com.mvbackend.domain.model.Veiculo;
+import com.mvbackend.domain.service.ClienteService;
 import com.mvbackend.domain.service.VeiculoService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -22,6 +23,8 @@ public class VeiculoController {
 
     @Autowired
     private VeiculoService veiculoService;
+    @Autowired
+    private ClienteService clienteService;
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemVeiculo>> listarVeiculos( Pageable pageable) {
@@ -34,7 +37,8 @@ public class VeiculoController {
     @Transactional
     public ResponseEntity<DadosListagemVeiculo> cadastrarVeiculo( @RequestBody @Valid DadosCadastroVeiculo dadosCadastroVeiculo, UriComponentsBuilder uriBuilder){
         try{
-            var veiculo = new Veiculo(dadosCadastroVeiculo);
+            var cliente = clienteService.findById(dadosCadastroVeiculo.idCliente());
+            var veiculo = new Veiculo(dadosCadastroVeiculo, cliente);
             veiculoService.cadastrarVeiculo(veiculo);
 
             var uri = uriBuilder.path("/veiculos/{id}").buildAndExpand(veiculo.getId()).toUri();

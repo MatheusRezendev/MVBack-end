@@ -17,6 +17,6 @@ public record DadosCadastroVeiculo (
         Integer ano,
 
         @Valid
-        Cliente cliente
+        Long idCliente
 ){
 }
