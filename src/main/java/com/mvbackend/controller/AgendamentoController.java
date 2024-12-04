@@ -61,7 +61,7 @@ public class AgendamentoController {
 
         return ResponseEntity.ok(page);
     }
-    @PutMapping
+    @PutMapping("/{id}")
     @Transactional
     public ResponseEntity<DadosListagemAgendamento> atualizarAgendamento(@RequestBody @Valid DadosAtualizacaoAgendamento dadosAtualizacaoAgendamento){
         try{
@@ -84,6 +84,17 @@ public class AgendamentoController {
         }
         catch (EntityNotFoundException e){
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DadosListagemAgendamento> buscarAgendamentoPorId(@PathVariable Long id) {
+        try {
+            var agendamento = agendamentoService.findById(id);
+
+            return ResponseEntity.ok(new DadosListagemAgendamento(agendamento));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 }
