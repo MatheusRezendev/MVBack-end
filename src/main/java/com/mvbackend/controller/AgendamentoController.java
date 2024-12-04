@@ -77,14 +77,13 @@ public class AgendamentoController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity<DadosListagemAgendamento> excluirAgendamento(@PathVariable Long id){
+    public ResponseEntity<Void> excluirAgendamento(@PathVariable Long id){
         try{
-            veiculoService.excluirVeiculo(id);
+            agendamentoService.excluirServico(id);
             return ResponseEntity.noContent().build();
         }
         catch (EntityNotFoundException e){
-            System.out.println("Entity not found");
+            return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.badRequest().build();
     }
 }
