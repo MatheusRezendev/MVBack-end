@@ -27,8 +27,6 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Veiculo> veiculos;
 
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Servico> servicos;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Agendamento> agendamentos;
@@ -38,7 +36,6 @@ public class Cliente {
         this.email = dadosCadastroCliente.email();
         this.telefone = dadosCadastroCliente.telefone();
         this.cpf = dadosCadastroCliente.cpf();
-        this.servicos = new ArrayList<>();
         this.veiculos = new ArrayList<>();
         this.agendamentos = new ArrayList<>();
     }

@@ -27,6 +27,7 @@ public class Servico {
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
 
+
     public Servico( DadosCadastroServico dadosCadastroServico) {
         this.descricao = dadosCadastroServico.descricao();
         this.preco = dadosCadastroServico.preco();
