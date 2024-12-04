@@ -2,7 +2,6 @@ package com.mvbackend.domain.model;
 
 import com.mvbackend.domain.dto.DadosCadastroAgendamento;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,11 +33,11 @@ public class Agendamento {
     @JoinColumn(name = "veiculo_id")
     private Veiculo veiculo;
 
-    public Agendamento( DadosCadastroAgendamento dadosCadastroAgendamento) {
+    public Agendamento( DadosCadastroAgendamento dadosCadastroAgendamento, Cliente cliente, Veiculo veiculo ) {
         this.descricao=dadosCadastroAgendamento.descricao();
         this.data=dadosCadastroAgendamento.data();
-        this.cliente=dadosCadastroAgendamento.cliente();
-        this.veiculo=dadosCadastroAgendamento.veiculo();
+        this.cliente = cliente;
+        this.veiculo = veiculo;
     }
 
     public void setServico(Servico servico) {
