@@ -67,20 +67,8 @@ public class AgendamentoService {
 
     public void atualizarInformacoesAgendamento(DadosAtualizacaoAgendamento dadosAtualizacaoAgendamento, Agendamento agendamento) {
         try{
-            if(dadosAtualizacaoAgendamento.descricao() != null){
-                agendamento.setDescricao(dadosAtualizacaoAgendamento.descricao());
-            }
             if (dadosAtualizacaoAgendamento.data() != null){
                 agendamento.setData(dadosAtualizacaoAgendamento.data());
-            }
-            if (dadosAtualizacaoAgendamento.idVeiculo() != null){
-                agendamento.setVeiculo(veiculoService.findById(dadosAtualizacaoAgendamento.idVeiculo()));
-            }
-            if (dadosAtualizacaoAgendamento.idServico() != null){
-                agendamento.setServico(servicoService.findById(dadosAtualizacaoAgendamento.idServico()));
-            }
-            if (dadosAtualizacaoAgendamento.idVeiculo() != null){
-                agendamento.setCliente(clienteService.findById(dadosAtualizacaoAgendamento.idCliente()));
             }
         } catch (Exception e){
             System.out.println("Erro ao atualizar agendamento" + e.getMessage());

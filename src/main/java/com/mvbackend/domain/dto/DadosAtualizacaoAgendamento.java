@@ -9,10 +9,6 @@ public record DadosAtualizacaoAgendamento (
         @NotNull
         Long id,
 
-        String descricao,
-        LocalDate data,
-        Long idVeiculo,
-        Long idCliente,
-        Long idServico
+        LocalDate data
 ){}
 
