@@ -45,7 +45,7 @@ public class ClienteController {
     public ResponseEntity<DadosListagemCliente> salvar(@RequestBody @Valid DadosCadastroCliente dadosCadastroCliente, UriComponentsBuilder uriBuilder) {
         Cliente cliente = new Cliente(dadosCadastroCliente);
         clienteService.save(cliente);
-        var uri = uriBuilder.path("/cliente/{id}").buildAndExpand(cliente.getId()).toUri();
+        var uri = uriBuilder.path("/clientes/{id}").buildAndExpand(cliente.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosListagemCliente(cliente));
     }
 
